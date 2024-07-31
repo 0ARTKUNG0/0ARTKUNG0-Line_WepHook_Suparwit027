@@ -1,6 +1,6 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const { WebhookClient, Payload } = require("dialogflow-fulfillment");
+import express from "express";
+import bodyParser from "body-parser";
+import { WebhookClient, Payload } from "dialogflow-fulfillment";
 const port = 4000;
 
 //create server
@@ -9,7 +9,7 @@ const app = express();
 //middleware
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
     res.send("<h1>Welcome, this is a webhook for SE NPRU Line Chatbot !!!</h1>")
 });
 
