@@ -136,6 +136,7 @@ app.post("/webhook", (req, res) => {
             }
         };
 
+        const { Payload } = require("dialogflow-fulfillment");
         let payload = new Payload("LINE", flexMessage, { sendAsMessage: true });
         agent.add(payload);
     }
