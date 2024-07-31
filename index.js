@@ -1,6 +1,6 @@
-import express from "express";
-import bodyParser from "body-parser";
-import { WebhookClient, Payload } from "dialogflow-fulfillment";
+const express = require("express");
+const bodyParser = require("body-parser");
+const { WebhookClient, Payload } = require("dialogflow-fulfillment");
 const port = 4000;
 
 //create server
@@ -9,7 +9,7 @@ const app = express();
 //middleware
 app.use(bodyParser.json());
 
-app.get("/", (_, res) => {
+app.get("/", (req, res) => {
     res.send("<h1>Welcome, this is a webhook for SE NPRU Line Chatbot !!!</h1>")
 });
 
@@ -34,12 +34,12 @@ app.post("/webhook", (req, res) => {
         let height = agent.parameters.height / 100;
         let bmi = (weight / (height * height)).toFixed(2);
 
-        let result = "ขออภัย ไม่เขาใจ Tenno";
+        let result = "ขออภัย Tenno";
 
         if (bmi < 18.5) {
             result = "คุณผอมไป กินข้าวบ้างนะ Tenno";
         } else if (bmi >= 18.5 && bmi <= 22.9) {
-            result = "คุณหุ่นดีนะ Tenno";
+            result = "คุณหุ่นนะ Tenno";
         } else if (bmi >= 23 && bmi <= 24.9) {
             result = "คุณเริ่มจะท้วมแล้วนะ Tenno";
         } else if (bmi >= 25.8 && bmi <= 29.9) {
@@ -141,13 +141,72 @@ app.post("/webhook", (req, res) => {
     }
 
     function calculateRectangleArea(agent) {
-        let wide = agent.parameters.wide;
         let length = agent.parameters.length;
-        let result = wide * length;
-        console.log(wide, length, result);
-        agent.add("พื้นที่รูปสี่เหลี่ยมขนาด กว้าง" + wide + "ซม. ยาว " + length + " = " + result + " ตร.ซม.");
-    }
+        let width = agent.parameters.width;
+        let area = length * width;
 
+        const flexMessage = {
+            "type": "flex",
+            "altText": "Flex Message",
+            "contents": {
+                "type": "bubble",
+                "header": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "Rectangle Area Calculation Result",
+                            "weight": "bold",
+                            "size": "lg",
+                            "align": "center"
+                        }
+                    ]
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "Your Rectangle Area Result",
+                            "weight": "bold",
+                            "size": "md",
+                            "margin": "md"
+                        },
+                        {
+                            "type": "text",
+                            "text": "Length: " + length + " units",
+                            "size": "sm",
+                            "margin": "sm"
+                        },
+                        {
+                            "type": "text",
+                            "text": "Width: " + width + " units",
+                            "size": "sm",
+                            "margin": "sm"
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "lg"
+                        },
+                        {
+                            "type": "text",
+                            "text": "Area: " + area + " square units",
+                            "weight": "bold",
+                            "size": "xl",
+                            "align": "center",
+                            "margin": "lg",
+                            "color": "#00b900"
+                        }
+                    ]
+                }
+            }
+        };
+
+        let payload = new Payload("LINE", flexMessage, { sendAsMessage: true });
+        agent.add(payload);
+    }
 
     function calculateCircleArea(agent) {
         let radius = agent.parameters.radius;
