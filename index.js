@@ -34,18 +34,18 @@ app.post("/webhook", (req, res) => {
         let height = agent.parameters.height / 100;
         let bmi = (weight / (height * height)).toFixed(2);
 
-        let result = "ขออภัย หนูไม่เข้าใจ";
+        let result = "ขออภัย ไม่เขาใจ Tenno";
 
         if (bmi < 18.5) {
-            result = "คุณผอมไป กินข้าวบ้างนะ";
+            result = "คุณผอมไป กินข้าวบ้างนะ Tenno";
         } else if (bmi >= 18.5 && bmi <= 22.9) {
-            result = "คุณหุ่นดีจุงเบย";
+            result = "คุณหุ่นดีนะ Tenno";
         } else if (bmi >= 23 && bmi <= 24.9) {
-            result = "คุณเริ่มจะท้วมแล้วนะ";
+            result = "คุณเริ่มจะท้วมแล้วนะ Tenno";
         } else if (bmi >= 25.8 && bmi <= 29.9) {
-            result = "คุณอ้วนละ ออกกำลังกายหน่อยนะ";
+            result = "คุณอ้วนละ ออกกำลังกายหน่อยนะ Tenno";
         } else if (bmi > 30) {
-            result = "คุณอ้วนเกินไปละ หาหมอเหอะ";
+            result = "คุณอ้วนเกินไปละ หาหมอเหอะ Tenno";
         }
         const flexMessage = {
             "type": "flex",
@@ -142,8 +142,8 @@ app.post("/webhook", (req, res) => {
 
     function calculateRectangleArea(agent) {
         let length = agent.parameters.length;
-        let width = agent.parameters.width;
-        let area = length * width;
+        let wide = agent.parameters.wide;
+        let area = length * wide;
 
         const flexMessage = {
             "type": "flex",
@@ -182,7 +182,7 @@ app.post("/webhook", (req, res) => {
                         },
                         {
                             "type": "text",
-                            "text": "Width: " + width + " units",
+                            "text": "Width: " + wide + " units",
                             "size": "sm",
                             "margin": "sm"
                         },
