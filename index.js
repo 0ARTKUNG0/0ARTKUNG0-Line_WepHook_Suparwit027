@@ -182,7 +182,7 @@ app.post("/webhook", (req, res) => {
                         },
                         {
                             "type": "text",
-                            "text": "Width: " + wide + " units",
+                            "text": "wide: " + wide + " units",
                             "size": "sm",
                             "margin": "sm"
                         },
