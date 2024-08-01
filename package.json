@@ -4,7 +4,7 @@
   "description": "this is a webhook for line chatbot",
   "main": "index.js",
   "engines": {
-    "node": "10"
+    "node": ">=10"
   },
   "scripts": {
     "start": "node index.js",
@@ -19,8 +19,9 @@
   "author": "Worachet Uttha",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2",
     "actions-on-google": "^2.2.0",
-    "dialogflow-fulfillment": "^0.6.1"
+    "body-parser": "^1.20.2",
+    "dialogflow-fulfillment": "^0.6.1",
+    "express": "^4.19.2"
   }
 }
